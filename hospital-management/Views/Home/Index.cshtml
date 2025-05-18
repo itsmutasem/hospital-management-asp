@@ -1,8 +1,21 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+    ViewBag.Title = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<main class="flex flex-col items-center justify-center text-center h-screen bg-gray-900">
+    <h1 class="text-4xl font-bold mb-2 text-white">ZU Hospital</h1>
+    <p class="text-gray-400 mb-6 max-w-md">
+        Welcome to ZU Hospital—where your care meets cutting-edge technology.
+    </p>
+    <div class="flex space-x-4">
+        <a href="#book"
+           class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-5 rounded-lg transition">
+            Book Appointment
+        </a>
+        <a href="#doctors"
+           class="border border-blue-600 hover:bg-blue-600 hover:text-white text-blue-400 font-medium py-2 px-5 rounded-lg transition">
+            View Doctors
+        </a>
+    </div>
+</main>
