@@ -1,18 +1,33 @@
-﻿@model TModel
-
+﻿@model IEnumerable<hospital_management.Models.Doctor>
 @{
-    Layout = null;
+    Layout = "_Layout";
+    ViewBag.Title = "Our Doctors";
 }
 
-<!DOCTYPE html>
+<main class="min-h-screen bg-gray-900 text-gray-100 py-12">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-semibold mb-6">Our Doctors</h2>
 
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
-<div>
-      
-</div>
-</body>
-</html>
+        <div class="overflow-x-auto bg-gray-800 rounded-lg shadow-md">
+            <table class="min-w-full divide-y divide-gray-700">
+                <thead class="bg-gray-700">
+                <tr>
+                    <th class="px-6 py-3 text-left text-sm font-medium uppercase">ID</th>
+                    <th class="px-6 py-3 text-left text-sm font-medium uppercase">Name</th>
+                    <th class="px-6 py-3 text-left text-sm font-medium uppercase">Specialty</th>
+                </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-700">
+                @foreach (var doc in Model)
+                {
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">@doc.DoctorId</td>
+                        <td class="px-6 py-4 whitespace-nowrap">@doc.FullName</td>
+                        <td class="px-6 py-4 whitespace-nowrap">@doc.Specialty</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>

@@ -5,7 +5,7 @@ namespace hospital_management.Controllers;
 
 public class DoctorController : Controller
 {
-    private static List<Doctor> doctors = new List<Doctor>
+    private static List<Doctor> _doctors = new List<Doctor>
     {
         new Doctor { DoctorId = 1, FullName = "Dr. Sarah Lee", Specialty = "Cardiology" },
         new Doctor { DoctorId = 2, FullName = "Dr. Ahmed Khan", Specialty = "Orthopedics" },
@@ -13,6 +13,6 @@ public class DoctorController : Controller
     };
     public IActionResult Index()
     {
-        return View();
+        return View(_doctors);
     }
 }
