@@ -1,0 +1,62 @@
+﻿@model IEnumerable<hospital_management.ViewModels.SlotViewModel>
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Book Appointment";
+}
+
+<main class="min-h-screen bg-gray-900 text-gray-100 py-12">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl font-semibold mb-6">Book an Appointment</h2>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+      <div class="mb-4 p-4 bg-green-700 text-green-100 rounded">
+        @TempData["SuccessMessage"]
+      </div>
+    }
+
+    <div class="overflow-x-auto bg-gray-800 rounded-lg shadow-md">
+      <table class="min-w-full divide-y divide-gray-700">
+        <thead class="bg-gray-700">
+          <tr>
+            <th class="px-6 py-3 text-left text-sm font-medium uppercase">Day</th>
+            <th class="px-6 py-3 text-left text-sm font-medium uppercase">Time</th>
+            <th class="px-6 py-3 text-left text-sm font-medium uppercase">Doctor</th>
+            <th class="px-6 py-3 text-left text-sm font-medium uppercase">Major</th>
+            <th class="px-6 py-3 text-center text-sm font-medium uppercase">Action</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-700">
+          @foreach (var slot in Model)
+          {
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                @slot.Day.ToString("MMM d, yyyy")
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                @slot.Time
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                @slot.DoctorName
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                @slot.Major
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-center">
+                <form asp-action="Book" method="post" class="inline">
+                  <input type="hidden" name="DoctorId" value="@slot.DoctorId" />
+                  <input type="hidden" name="Day" value="@slot.Day.ToString("o")" />
+                  <input type="hidden" name="Time" value="@slot.Time" />
+                  <button type="submit"
+                          class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-1 px-4 rounded-lg transition">
+                    Book
+                  </button>
+                </form>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
