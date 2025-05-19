@@ -4,7 +4,7 @@ namespace hospital_management.Controllers;
 
 public class DoctorController : Controller
 {
-    // GET
+    
     public IActionResult Index()
     {
         return View();
