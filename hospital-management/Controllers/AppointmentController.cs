@@ -13,24 +13,22 @@ namespace YourNamespace.Controllers
             new SlotViewModel { Day = new DateTime(2025,5,26), Time="10:00 AM", DoctorId=2, DoctorName="Dr. Ahmed Khan", Major="Orthopedics" },
             new SlotViewModel { Day = new DateTime(2025,5,27), Time="01:00 PM", DoctorId=3, DoctorName="Dr. Maria Ruiz", Major="Dermatology" },
         };
+        private static readonly HashSet<string> _bookedKeys = new();
         
         public IActionResult BookAppointment()
         {
+            ViewBag.BookedKeys = _bookedKeys;
             return View(_slots);
         }
 
         [HttpPost]
         public IActionResult Book(SlotViewModel slot)
         {
-            // Here you would save to the database; for now just show a message:
-            TempData["SuccessMessage"] = 
-                $"Your appointment on {slot.Day:MMMM d, yyyy} at {slot.Time} with {slot.DoctorName} has been booked.";
+            var key = $"{slot.DoctorId}_{slot.Day:O}_{slot.Time}";
+            _bookedKeys.Add(key);
 
-            // Optionally remove the booked slot from the static list:
-            _slots.RemoveAll(s => 
-                s.DoctorId == slot.DoctorId 
-                && s.Day == slot.Day 
-                && s.Time == slot.Time);
+            TempData["SuccessMessage"] =
+                $"Your appointment on {slot.Day:MMMM d, yyyy} at {slot.Time} with {slot.DoctorName} has been booked.";
 
             return RedirectToAction(nameof(BookAppointment));
         }

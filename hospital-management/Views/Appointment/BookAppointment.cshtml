@@ -2,6 +2,8 @@
 @{
     Layout = "_Layout";
     ViewBag.Title = "Book Appointment";
+    var booked = ViewBag.BookedKeys as HashSet<string> 
+                 ?? new HashSet<string>();
 }
 
 <main class="min-h-screen bg-gray-900 text-gray-100 py-12">
@@ -29,6 +31,8 @@
         <tbody class="divide-y divide-gray-700">
           @foreach (var slot in Model)
           {
+            var key = $"{slot.DoctorId}_{slot.Day:O}_{slot.Time}";
+            bool isBooked = booked.Contains(key);
             <tr>
               <td class="px-6 py-4 whitespace-nowrap">
                 @slot.Day.ToString("MMM d, yyyy")
@@ -43,15 +47,22 @@
                 @slot.Major
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-center">
-                <form asp-action="Book" method="post" class="inline">
-                  <input type="hidden" name="DoctorId" value="@slot.DoctorId" />
-                  <input type="hidden" name="Day" value="@slot.Day.ToString("o")" />
-                  <input type="hidden" name="Time" value="@slot.Time" />
-                  <button type="submit"
-                          class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-1 px-4 rounded-lg transition">
-                    Book
-                  </button>
-                </form>
+                @if (isBooked)
+                {
+                  <span class="text-gray-400 font-medium">Booked</span>
+                }
+                else
+                {
+                  <form asp-action="Book" method="post" class="inline">
+                    <input type="hidden" name="DoctorId" value="@slot.DoctorId" />
+                    <input type="hidden" name="Day" value="@slot.Day.ToString("o")" />
+                    <input type="hidden" name="Time" value="@slot.Time" />
+                    <button type="submit"
+                            class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-1 px-4 rounded-lg transition">
+                      Book
+                    </button>
+                  </form>
+                }
               </td>
             </tr>
           }
