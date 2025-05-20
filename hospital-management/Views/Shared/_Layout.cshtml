@@ -11,8 +11,8 @@
     <div class="container mx-auto flex items-center justify-between py-4 px-6">
         <div class="text-xl font-semibold">ZU Hospital</div>
         <nav class="space-x-4">
-            <a href="#book" class="hover:text-blue-400">Book</a>
-            <a href="#doctors" class="hover:text-blue-400">Doctors</a>
+            <a asp-controller="Appointment" asp-action="BookAppointment" class="hover:text-blue-400">Book</a>
+            <a asp-controller="Doctor" asp-action="Index" class="hover:text-blue-400">Doctors</a>
             <a href="#about" class="hover:text-blue-400">About</a>
         </nav>
         <a href="/Account/Login"
